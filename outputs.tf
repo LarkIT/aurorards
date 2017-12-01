@@ -1,16 +1,10 @@
-
-output "external_dns_enable" {
-  value = "${var.external_dns_enable}"
+output "aurora_cluster_id" {
+  value = "${stage_aurora_cluster.id}"
 }
 
-output "internal_domain_name" {
-  value = "${var.internal_domain_name}"
+output "aurora_cluster_instance" {
+  value = "${stage_aurora_cluster.id}"
 }
-
-output "route53_internal_id" {
-  value = "${aws_route53_zone.internal.id}"
-}
-
-output "route53_external_id" {
-  value = "${aws_route53_zone.external.id}"
+output "cluster_address" {
+    value = "${aws_rds_cluster.aurora_cluster.address}"
 }
