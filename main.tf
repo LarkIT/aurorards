@@ -5,7 +5,7 @@
 ########################
 
 resource "aws_rds_cluster" "aurora_cluster" {
-  
+
     cluster_identifier            = "${var.environment_name}_aurora_cluster"
     database_name                 = "${var.rds_database_name}"
     master_username               = "${var.rds_master_username}"
@@ -25,6 +25,17 @@ resource "aws_rds_cluster" "aurora_cluster" {
         ManagedBy    = "terraform"
         Environment  = "${var.environment_name}"
     }
+resource "aws_route53_zone" "external" {
+  count   = "${var.external_dns_enable}"
+  name    = "${var.external_domain_name}"
+  comment = "External Domain"
+}
+
+resource "aws_route53_zone" "internal" {
+  name   = "${var.internal_domain_name}"
+  comment = "Internal Domain"
+  vpc_id = "${var.vpc_id}"
+}
 
     lifecycle {
         create_before_destroy = true
