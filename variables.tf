@@ -20,6 +20,8 @@ variable "vpc_rds_subnet_ids" {
 
 variable "vpc_rds_security_group_ids" {
     description = "The IDs of the security groups that should be used for the RDS cluster instances"
+    type = "list"
+    default = []
 }
 
 variable "rds_master_username" {

@@ -15,9 +15,7 @@ resource "aws_rds_cluster" "aurora_cluster" {
     preferred_maintenance_window  = "wed:03:00-wed:04:00"
     db_subnet_group_name          = "${aws_db_subnet_group.aurora_subnet_group.name}"
     final_snapshot_identifier     = "${var.environment_name}_aurora_cluster"
-    vpc_security_group_ids        = [
-        "${var.vpc_rds_security_group_ids}"
-    ]
+    vpc_security_group_ids        = "${var.vpc_rds_security_group_ids}"
 
     tags {
         Name         = "${var.environment_name}-Aurora-DB-Cluster"
