@@ -29,3 +29,15 @@ variable "rds_master_username" {
 variable "rds_master_password" {
   description = "The ID's of the VPC subnets that the RDS cluster instances will be created in"
 }
+
+variable "external_dns_enable" {
+  default = true
+}
+
+variable "internal_domain_name" {
+  default = ""
+}
+
+variable "external_domain_name" {
+  default = ""
+}
