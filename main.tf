@@ -13,9 +13,10 @@ resource "aws_rds_cluster" "aurora_cluster" {
     backup_retention_period       = 14
     preferred_backup_window       = "02:00-03:00"
     preferred_maintenance_window  = "wed:03:00-wed:04:00"
+    availability_zones            = ["us-west-2a", "us-west-2b", "us-east-1a"]
     db_subnet_group_name          = "${aws_db_subnet_group.aurora_subnet_group.name}"
     final_snapshot_identifier     = "${var.environment_name}-aurora-cluster"
-    vpc_security_group_ids        = "${var.vpc_rds_security_group_ids}"
+    vpc_security_group_ids        = ${var.vpc_rds_security_group_ids}
 
     tags {
         Name         = "${var.environment_name}-Aurora-DB-Cluster"
@@ -51,7 +52,6 @@ resource "aws_rds_cluster_instance" "aurora_cluster_instance" {
     instance_class        = "db.t2.small"
     db_subnet_group_name  = "${aws_db_subnet_group.aurora_subnet_group.name}"
     publicly_accessible   = true
-    availability_zones = ["us-west-2a", "us-west-2b", "us-east-1a"]
 
     tags {
         Name         = "${var.environment_name}-Aurora-DB-Instance-${count.index}"
