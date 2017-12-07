@@ -6,7 +6,7 @@
 
 resource "aws_rds_cluster" "aurora_cluster" {
 
-    cluster_identifier            = "${var.environment_name}_aurora_cluster"
+    cluster_identifier            = "${var.environment_name}-aurora-cluster"
     database_name                 = "${var.rds_database_name}"
     master_username               = "${var.rds_master_username}"
     master_password               = "${var.rds_master_password}"
@@ -14,7 +14,7 @@ resource "aws_rds_cluster" "aurora_cluster" {
     preferred_backup_window       = "02:00-03:00"
     preferred_maintenance_window  = "wed:03:00-wed:04:00"
     db_subnet_group_name          = "${aws_db_subnet_group.aurora_subnet_group.name}"
-    final_snapshot_identifier     = "${var.environment_name}_aurora_cluster"
+    final_snapshot_identifier     = "${var.environment_name}-aurora-cluster"
     vpc_security_group_ids        = "${var.vpc_rds_security_group_ids}"
 
     tags {
@@ -23,6 +23,8 @@ resource "aws_rds_cluster" "aurora_cluster" {
         ManagedBy    = "terraform"
         Environment  = "${var.environment_name}"
     }
+}
+
 resource "aws_route53_zone" "external" {
   count   = "${var.external_dns_enable}"
   name    = "${var.external_domain_name}"
@@ -33,7 +35,6 @@ resource "aws_route53_zone" "internal" {
   name   = "${var.internal_domain_name}"
   comment = "Internal Domain"
   vpc_id = "${var.vpc_id}"
-}
 
     lifecycle {
         create_before_destroy = true
@@ -45,7 +46,7 @@ resource "aws_rds_cluster_instance" "aurora_cluster_instance" {
 
     count                 = "${length(split(",", var.vpc_rds_subnet_ids))}"
 
-    identifier            = "${var.environment_name}_aurora_instance_${count.index}"
+    identifier            = "${var.environment_name}-aurora-instance-${count.index}"
     cluster_identifier    = "${aws_rds_cluster.aurora_cluster.id}"
     instance_class        = "db.t2.small"
     db_subnet_group_name  = "${aws_db_subnet_group.aurora_subnet_group.name}"
@@ -68,7 +69,7 @@ resource "aws_rds_cluster_instance" "aurora_cluster_instance" {
 
 resource "aws_db_subnet_group" "aurora_subnet_group" {
 
-    name          = "${var.environment_name}_aurora_db_subnet_group"
+    name          = "${var.environment_name}-aurora-db-subnet-group"
     description   = "Allowed subnets for Aurora DB cluster instances"
     subnet_ids    = [
         "${split(",", var.vpc_rds_subnet_ids)}"
