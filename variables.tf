@@ -16,8 +16,6 @@ variable "vpc_name" {
 
 variable "vpc_rds_subnet_ids" {
   description = "The ID's of the VPC subnets that the RDS cluster instances will be created in"
-  type = "list"
-  default = []
 }
 
 variable "vpc_rds_security_group_ids" {
