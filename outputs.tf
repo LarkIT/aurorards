@@ -1,7 +1,4 @@
 output "aurora_cluster_id" {
-  value = "${aws_rds_cluster.aurora_cluster.id}"
+  value = "${aws_rds_cluster.aurora-cluster.id}"
 }
 
-output "aurora_cluster_instance_id" {
-  value = "${aws_rds_cluster_instance.aurora_cluster_instance.id}"
-}
