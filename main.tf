@@ -24,6 +24,10 @@ resource "aws_rds_cluster" "aurora-cluster" {
         ManagedBy    = "terraform"
         Environment  = "${var.environment_name}"
     }
+
+    lifecycle {
+        prevent_destroy = true
+    }
 }
 
 #resource "aws_route53_zone" "external" {
@@ -61,7 +65,7 @@ resource "aws_rds_cluster_instance" "aurora-cluster-instance" {
     }
 
     lifecycle {
-        create_before_destroy = true
+        prevent_destroy = true
     }
 
 }
