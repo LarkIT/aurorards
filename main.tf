@@ -25,9 +25,6 @@ resource "aws_rds_cluster" "aurora-cluster" {
         Environment  = "${var.environment_name}"
     }
 
-    lifecycle {
-        prevent_destroy = true
-    }
 }
 
 #resource "aws_route53_zone" "external" {
