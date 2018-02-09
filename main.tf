@@ -61,9 +61,6 @@ resource "aws_rds_cluster_instance" "aurora-cluster-instance" {
         Environment  = "${var.environment_name}"
     }
 
-    lifecycle {
-        prevent_destroy = true
-    }
 
 }
 
